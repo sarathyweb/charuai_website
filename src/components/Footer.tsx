@@ -10,7 +10,7 @@ export default function Footer() {
         </Link>
 
         {/* Links */}
-        <div className="flex gap-6 text-sm">
+        <div className="flex gap-6 text-sm tracking-[0.01em]">
           <Link
             href="/privacy"
             className="underline underline-offset-4 text-accent-surface/70 hover:text-accent-surface transition-colors"
@@ -26,7 +26,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <p className="text-sm text-accent-surface/60 text-center md:text-right">
+        <p className="text-sm tracking-[0.01em] text-accent-surface/60 text-center md:text-right">
           2026 Charu AI. Made with care for people who struggle to start.
         </p>
       </div>

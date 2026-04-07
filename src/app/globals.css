@@ -36,11 +36,35 @@
     color: var(--color-text);
     font-family: var(--font-sans);
     font-size: 1rem;
-    line-height: 1.6;
+    line-height: 1.5;
   }
 
-  h1, h2, h3 {
+  @media (min-width: 768px) {
+    body {
+      font-size: 1.125rem;
+    }
+  }
+
+  h1 {
     font-family: var(--font-serif);
     color: var(--color-primary);
+    line-height: 1.1;
+  }
+
+  h2 {
+    font-family: var(--font-serif);
+    color: var(--color-primary);
+    line-height: 1.15;
+  }
+
+  h3 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    color: var(--color-primary);
+    line-height: 1.25;
+  }
+
+  .text-sm, .text-xs {
+    letter-spacing: 0.01em;
   }
 }

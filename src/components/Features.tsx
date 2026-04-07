@@ -25,14 +25,14 @@ export default function Features() {
   return (
     <section id="features" className="bg-background py-16 md:py-24">
       <div className="max-w-[1120px] mx-auto px-6">
-        <h2 className="font-serif text-primary text-3xl md:text-4xl text-center mb-12">
+        <h2 className="font-serif text-primary text-[1.75rem] md:text-[2.25rem] lg:text-[2.5rem] leading-[1.15] text-center mb-12">
           She shows up. Every single day.
         </h2>
 
         {/* Featured card */}
         <div className="max-w-4xl mx-auto mb-6">
           <div className="bg-surface rounded-md shadow-card p-8">
-            <h3 className="font-bold text-xl text-text mb-2">
+            <h3 className="font-sans font-semibold text-xl text-text mb-2">
               Daily accountability calls
             </h3>
             <p className="text-muted">
@@ -50,10 +50,10 @@ export default function Features() {
               key={card.title}
               className="bg-surface rounded-md shadow-card p-6"
             >
-              <h3 className="font-bold text-base text-text mb-2">
+              <h3 className="font-sans font-semibold text-base text-text mb-2">
                 {card.title}
               </h3>
-              <p className="text-muted text-sm">{card.desc}</p>
+              <p className="text-muted text-sm tracking-[0.01em]">{card.desc}</p>
             </div>
           ))}
         </div>

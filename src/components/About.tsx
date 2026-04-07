@@ -2,7 +2,7 @@ export default function About() {
   return (
     <section id="about" className="bg-accent-surface py-16 md:py-24">
       <div className="max-w-[680px] mx-auto px-6">
-        <h2 className="font-serif text-primary text-3xl md:text-4xl mb-8">
+        <h2 className="font-serif text-primary text-[1.75rem] md:text-[2.25rem] lg:text-[2.5rem] leading-[1.15] mb-8">
           Built for you, when starting feels impossible
         </h2>
 
@@ -30,7 +30,7 @@ export default function About() {
           going to bed wondering where it all went.
         </p>
 
-        <p className="text-sm text-muted mt-6">
+        <p className="text-sm tracking-[0.01em] text-muted mt-6">
           We read thousands of posts from people describing what they actually
           need. Then we built that.
         </p>

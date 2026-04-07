@@ -7,7 +7,7 @@ export default function Hero() {
       <div className="max-w-[1120px] mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
         {/* Text column */}
         <div className="md:w-[55%] flex flex-col gap-6">
-          <h1 className="font-serif text-primary text-4xl md:text-5xl lg:text-[3.5rem] leading-tight">
+          <h1 className="font-serif text-primary text-[2.25rem] md:text-[3.5rem] lg:text-[4rem] leading-[1.1]">
             You know what you need to do. Charu gets you to actually do it.
           </h1>
           <p className="text-muted text-lg max-w-xl">

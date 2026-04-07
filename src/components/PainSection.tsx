@@ -8,7 +8,7 @@ export default function PainSection() {
   return (
     <section className="bg-accent-surface py-16 md:py-24">
       <div className="max-w-[1120px] mx-auto px-6">
-        <h2 className="font-serif text-primary text-3xl md:text-4xl text-center mb-12">
+        <h2 className="font-serif text-primary text-[1.75rem] md:text-[2.25rem] lg:text-[2.5rem] leading-[1.15] text-center mb-12">
           Your to-do list is running your life
         </h2>
 

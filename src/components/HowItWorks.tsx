@@ -22,7 +22,7 @@ export default function HowItWorks() {
   return (
     <section id="how-it-works" className="bg-surface py-16 md:py-24">
       <div className="max-w-[1120px] mx-auto px-6">
-        <h2 className="font-serif text-primary text-3xl md:text-4xl text-center">
+        <h2 className="font-serif text-primary text-[1.75rem] md:text-[2.25rem] lg:text-[2.5rem] leading-[1.15] text-center">
           How Charu works
         </h2>
         <p className="text-muted text-lg text-center mt-4 mb-12">
@@ -35,7 +35,7 @@ export default function HowItWorks() {
               <span className="font-serif text-primary text-5xl">
                 {step.number}
               </span>
-              <h3 className="font-bold text-text text-lg">{step.title}</h3>
+              <h3 className="font-sans font-semibold text-text text-lg">{step.title}</h3>
               <p className="text-muted">{step.desc}</p>
             </div>
           ))}
@@ -43,7 +43,7 @@ export default function HowItWorks() {
 
         <div className="flex flex-col items-center gap-4 mt-16">
           <WhatsAppCta />
-          <p className="text-muted text-sm">Your day, handled.</p>
+          <p className="text-muted text-sm tracking-[0.01em]">Your day, handled.</p>
         </div>
       </div>
     </section>

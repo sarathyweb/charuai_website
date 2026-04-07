@@ -26,7 +26,7 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-muted hover:text-primary transition-colors"
+              className="text-sm tracking-[0.01em] text-muted hover:text-primary transition-colors"
             >
               {link.label}
             </a>
@@ -37,7 +37,7 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           <a
             href="#cta"
-            className="bg-primary text-white text-sm font-medium px-5 py-2 rounded-lg hover:opacity-90 transition-opacity"
+            className="bg-primary text-white text-sm tracking-[0.01em] font-medium px-5 py-2 rounded-lg hover:opacity-90 transition-opacity"
           >
             Try Charu
           </a>
@@ -74,7 +74,7 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="block py-3 text-sm text-muted hover:text-primary transition-colors"
+              className="block py-3 text-sm tracking-[0.01em] text-muted hover:text-primary transition-colors"
               onClick={() => setMenuOpen(false)}
             >
               {link.label}
