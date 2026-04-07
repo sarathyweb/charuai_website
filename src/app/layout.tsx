@@ -21,12 +21,30 @@ export const metadata: Metadata = {
   title: "Charu AI - Your accountability partner that actually calls you",
   description:
     "Charu calls your phone every day to help you start, stay on track, and finish. Daily check-ins on WhatsApp. No new app to download.",
+  icons: {
+    icon: "/favicon.svg",
+  },
   openGraph: {
     title: "Charu AI - Your accountability partner that actually calls you",
     description:
       "Charu calls your phone every day to help you start, stay on track, and finish. Daily check-ins on WhatsApp. No new app to download.",
     type: "website",
     url: "https://charuai.com",
+    images: [
+      {
+        url: "https://charuai.com/og.svg",
+        width: 1200,
+        height: 630,
+        alt: "Charu AI - You know what you need to do. Charu gets you to actually do it.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Charu AI - Your accountability partner that actually calls you",
+    description:
+      "Charu calls your phone every day to help you start, stay on track, and finish. Daily check-ins on WhatsApp. No new app to download.",
+    images: ["https://charuai.com/og.svg"],
   },
 };
 
