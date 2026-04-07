@@ -30,11 +30,6 @@ export default function About() {
           going to bed wondering where it all went.
         </p>
 
-        <p className="text-sm tracking-[0.01em] text-muted mt-6">
-          We read thousands of posts from people describing what they actually
-          need. Then we built that.
-        </p>
-
         <a
           href="#how-it-works"
           className="inline-block mt-8 text-primary underline underline-offset-4 hover:opacity-80 transition-opacity"
