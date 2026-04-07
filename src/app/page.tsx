@@ -1,10 +1,19 @@
+import Hero from "@/components/Hero";
+import PainSection from "@/components/PainSection";
+import HowItWorks from "@/components/HowItWorks";
+import Features from "@/components/Features";
+import About from "@/components/About";
+import CtaBanner from "@/components/CtaBanner";
+
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="font-serif text-primary text-5xl mb-4">Charu</h1>
-        <p className="text-muted text-lg">Coming soon</p>
-      </div>
-    </div>
+    <>
+      <Hero />
+      <PainSection />
+      <HowItWorks />
+      <Features />
+      <About />
+      <CtaBanner />
+    </>
   );
 }
