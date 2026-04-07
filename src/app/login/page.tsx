@@ -17,7 +17,7 @@ export default function LoginPage() {
   const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
-    if (!loading && user) router.push("/dashboard");
+    if (!loading && user) router.replace("/dashboard");
   }, [user, loading, router]);
 
   const handleSendOtp = async () => {
@@ -58,7 +58,7 @@ export default function LoginPage() {
     setError("");
     try {
       await verifyOtp(code);
-      router.push("/dashboard");
+      router.replace("/dashboard");
     } catch {
       setError("Invalid code. Please try again.");
       setOtp(["", "", "", "", "", ""]);
