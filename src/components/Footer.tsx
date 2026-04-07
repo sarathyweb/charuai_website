@@ -1,0 +1,35 @@
+import Link from "next/link";
+
+export default function Footer() {
+  return (
+    <footer className="bg-dark text-accent-surface">
+      <div className="mx-auto max-w-container px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
+        {/* Logo */}
+        <Link href="/" className="font-serif text-xl text-accent-surface">
+          Charu
+        </Link>
+
+        {/* Links */}
+        <div className="flex gap-6 text-sm">
+          <Link
+            href="/privacy"
+            className="underline underline-offset-4 text-accent-surface/70 hover:text-accent-surface transition-colors"
+          >
+            Privacy Policy
+          </Link>
+          <Link
+            href="/terms"
+            className="underline underline-offset-4 text-accent-surface/70 hover:text-accent-surface transition-colors"
+          >
+            Terms &amp; Conditions
+          </Link>
+        </div>
+
+        {/* Copyright */}
+        <p className="text-sm text-accent-surface/60 text-center md:text-right">
+          2026 Charu AI. Made with care for people who struggle to start.
+        </p>
+      </div>
+    </footer>
+  );
+}
