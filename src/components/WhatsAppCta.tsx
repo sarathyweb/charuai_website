@@ -21,10 +21,12 @@ export default function WhatsAppCta() {
   }, []);
 
   return (
-    <div id="cta">
+    <div>
       {/* Desktop: QR code */}
       <div className="hidden md:flex flex-col items-center gap-4">
-        <canvas ref={canvasRef} className="rounded-md shadow-qr" />
+        <div className="p-3 bg-white rounded-2xl shadow-qr">
+          <canvas ref={canvasRef} className="rounded-lg" />
+        </div>
         <p className="text-sm text-muted">Scan to chat with Charu</p>
         <a
           href={WHATSAPP_URL_WITH_UTM}
@@ -42,7 +44,7 @@ export default function WhatsAppCta() {
           href={WHATSAPP_URL_WITH_UTM}
           target="_blank"
           rel="noopener noreferrer"
-          className="block w-full text-center bg-primary text-white font-medium py-3.5 px-6 rounded-full hover:opacity-90 transition-opacity"
+          className="relative block w-full text-center bg-primary text-white font-medium py-3.5 px-6 rounded-full hover:opacity-90 transition-all hover:shadow-lg active:scale-[0.98]"
         >
           Message Charu on WhatsApp
         </a>
