@@ -9,6 +9,7 @@ import WeeklySummary from "@/components/dashboard/WeeklySummary";
 import TaskList from "@/components/dashboard/TaskList";
 import CallSchedule from "@/components/dashboard/CallSchedule";
 import ProfileCard from "@/components/dashboard/ProfileCard";
+import WhatsAppCta from "@/components/WhatsAppCta";
 
 interface DashboardData {
   streak: { current: number; best: number };
@@ -45,36 +46,60 @@ interface Profile {
 export default function DashboardPage() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [error, setError] = useState("");
+  const [needsOnboarding, setNeedsOnboarding] = useState(false);
   const [pendingTasks, setPendingTasks] = useState<Task[]>([]);
   const [completedTasks, setCompletedTasks] = useState<Task[]>([]);
   const [windows, setWindows] = useState<CallWindow[]>([]);
   const [profile, setProfile] = useState<Profile | null>(null);
 
   useEffect(() => {
-    authFetch("/api/progress")
-      .then(async (res) => {
-        if (!res.ok) throw new Error("Failed to load");
-        return res.json();
-      })
-      .then(setData)
-      .catch(() => setError("Something went wrong. Please try again."));
-
-    authFetch("/api/tasks?status=pending")
-      .then((r) => r.ok ? r.json() : { tasks: [] })
-      .then((d) => setPendingTasks(d.tasks || []));
-
-    authFetch("/api/tasks?status=completed")
-      .then((r) => r.ok ? r.json() : { tasks: [] })
-      .then((d) => setCompletedTasks(d.tasks || []));
-
-    authFetch("/api/call-windows")
-      .then((r) => r.ok ? r.json() : { windows: [] })
-      .then((d) => setWindows(d.windows || []));
-
+    // Check if user exists in backend first
     authFetch("/api/user/profile")
-      .then((r) => r.ok ? r.json() : null)
-      .then(setProfile);
+      .then((r) => {
+        if (r.status === 404) {
+          setNeedsOnboarding(true);
+          return;
+        }
+        if (r.ok) r.json().then(setProfile);
+
+        // User exists — load the rest of the dashboard
+        authFetch("/api/progress")
+          .then(async (res) => {
+            if (!res.ok) throw new Error("Failed to load");
+            return res.json();
+          })
+          .then(setData)
+          .catch(() => setError("Something went wrong. Please try again."));
+
+        authFetch("/api/tasks?status=pending")
+          .then((r) => r.ok ? r.json() : { tasks: [] })
+          .then((d) => setPendingTasks(d.tasks || []));
+
+        authFetch("/api/tasks?status=completed")
+          .then((r) => r.ok ? r.json() : { tasks: [] })
+          .then((d) => setCompletedTasks(d.tasks || []));
+
+        authFetch("/api/call-windows")
+          .then((r) => r.ok ? r.json() : { windows: [] })
+          .then((d) => setWindows(d.windows || []));
+      })
+      .catch(() => setError("Something went wrong. Please try again."));
   }, []);
+
+  if (needsOnboarding) {
+    return (
+      <div className="max-w-md mx-auto px-8 py-20 text-center">
+        <h1 className="text-2xl font-semibold text-dark mb-3">
+          Welcome to Charu
+        </h1>
+        <p className="text-muted mb-8">
+          To get started, message Charu on WhatsApp. She&apos;ll walk you through
+          a quick onboarding to set up your accountability calls.
+        </p>
+        <WhatsAppCta />
+      </div>
+    );
+  }
 
   return (
     <>
