@@ -50,6 +50,12 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-4">
+          <Link
+            href="/dashboard"
+            className="hidden md:inline-block text-sm tracking-[0.01em] text-muted hover:text-primary transition-colors"
+          >
+            Dashboard
+          </Link>
           <a
             href="#cta"
             className="bg-primary text-white text-sm tracking-[0.01em] font-medium px-5 py-2 rounded-lg hover:opacity-90 transition-all hover:shadow-md"
@@ -103,6 +109,19 @@ export default function Navbar() {
                 {link.label}
               </motion.a>
             ))}
+            <motion.div
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: navLinks.length * 0.1 }}
+            >
+              <Link
+                href="/dashboard"
+                className="block py-3 text-sm tracking-[0.01em] text-primary font-medium"
+                onClick={() => setMenuOpen(false)}
+              >
+                Dashboard
+              </Link>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -27,7 +27,7 @@ export default function WhatsAppCta() {
         <div className="p-3 bg-white rounded-2xl shadow-qr">
           <canvas ref={canvasRef} className="rounded-lg" />
         </div>
-        <p className="text-sm text-muted">Scan to chat with Charu</p>
+        <p className="text-sm text-dark font-medium">Scan to chat with Charu</p>
         <a
           href={WHATSAPP_URL_WITH_UTM}
           target="_blank"
