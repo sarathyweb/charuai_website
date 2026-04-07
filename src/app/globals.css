@@ -185,3 +185,29 @@
     z-index: -1;
   }
 }
+
+/* Phone input overrides */
+.PhoneInput {
+  display: flex;
+  gap: 8px;
+}
+.PhoneInputCountry {
+  padding: 12px;
+  background: var(--color-background);
+  border: 1px solid var(--color-warm-gray);
+  border-radius: 10px;
+}
+.PhoneInputInput {
+  flex: 1;
+  padding: 12px 16px;
+  font-size: 16px;
+  background: var(--color-background);
+  border: 1px solid var(--color-warm-gray);
+  border-radius: 10px;
+  outline: none;
+  color: var(--color-text);
+}
+.PhoneInputInput:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(67,104,177,0.1);
+}
