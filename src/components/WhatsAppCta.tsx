@@ -13,7 +13,7 @@ export default function WhatsAppCta() {
         width: 200,
         margin: 2,
         color: {
-          dark: "#3b2314",
+          dark: "#2C2D72",
           light: "#ffffff",
         },
       });

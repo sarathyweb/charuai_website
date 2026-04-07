@@ -37,7 +37,7 @@ export default function Hero() {
               >
                 <motion.path
                   d="M2 8C50 2 100 4 150 6C200 8 250 4 298 7"
-                  stroke="#e8a87c"
+                  stroke="#507ABD"
                   strokeWidth="3"
                   strokeLinecap="round"
                   initial={{ pathLength: 0 }}

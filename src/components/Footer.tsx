@@ -5,8 +5,8 @@ export default function Footer() {
     <footer className="bg-dark text-accent-surface">
       <div className="mx-auto max-w-container px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Logo */}
-        <Link href="/" className="font-serif text-xl text-accent-surface">
-          Charu
+        <Link href="/" className="flex items-center">
+          <img src="/logo.svg" alt="Charu AI" className="h-6 brightness-0 invert" />
         </Link>
 
         {/* Links */}

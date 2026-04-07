@@ -32,8 +32,8 @@ export default function Navbar() {
       }`}
     >
       <div className="mx-auto max-w-container flex items-center justify-between px-6 py-3">
-        <Link href="/" className="font-serif text-2xl text-primary font-bold">
-          Charu
+        <Link href="/" className="flex items-center">
+          <img src="/logo.svg" alt="Charu AI" className="h-7" />
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
