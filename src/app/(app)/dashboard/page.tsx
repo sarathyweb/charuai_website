@@ -6,6 +6,9 @@ import SectionNav from "@/components/dashboard/SectionNav";
 import ProgressStats from "@/components/dashboard/ProgressStats";
 import Heatmap from "@/components/dashboard/Heatmap";
 import WeeklySummary from "@/components/dashboard/WeeklySummary";
+import TaskList from "@/components/dashboard/TaskList";
+import CallSchedule from "@/components/dashboard/CallSchedule";
+import ProfileCard from "@/components/dashboard/ProfileCard";
 
 interface DashboardData {
   streak: { current: number; best: number };
@@ -15,9 +18,37 @@ interface DashboardData {
   weekly_summary: string;
 }
 
+interface Task {
+  id: number;
+  title: string;
+  priority: number;
+  status: string;
+  source: string;
+  created_at: string;
+  completed_at: string | null;
+}
+
+interface CallWindow {
+  type: string;
+  start_time: string;
+  end_time: string;
+  timezone: string;
+  is_active: boolean;
+}
+
+interface Profile {
+  name: string;
+  phone: string;
+  created_at: string;
+}
+
 export default function DashboardPage() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [error, setError] = useState("");
+  const [pendingTasks, setPendingTasks] = useState<Task[]>([]);
+  const [completedTasks, setCompletedTasks] = useState<Task[]>([]);
+  const [windows, setWindows] = useState<CallWindow[]>([]);
+  const [profile, setProfile] = useState<Profile | null>(null);
 
   useEffect(() => {
     authFetch("/api/progress")
@@ -27,6 +58,22 @@ export default function DashboardPage() {
       })
       .then(setData)
       .catch(() => setError("Something went wrong. Please try again."));
+
+    authFetch("/api/tasks?status=pending")
+      .then((r) => r.ok ? r.json() : { tasks: [] })
+      .then((d) => setPendingTasks(d.tasks || []));
+
+    authFetch("/api/tasks?status=completed")
+      .then((r) => r.ok ? r.json() : { tasks: [] })
+      .then((d) => setCompletedTasks(d.tasks || []));
+
+    authFetch("/api/call-windows")
+      .then((r) => r.ok ? r.json() : { windows: [] })
+      .then((d) => setWindows(d.windows || []));
+
+    authFetch("/api/user/profile")
+      .then((r) => r.ok ? r.json() : null)
+      .then(setProfile);
   }, []);
 
   return (
@@ -63,6 +110,42 @@ export default function DashboardPage() {
               <div className="h-20 bg-surface border border-warm-gray/20 rounded-xl shadow-card animate-pulse" />
             </div>
           ) : null}
+        </section>
+
+        {/* Tasks Section */}
+        <section id="tasks" className="mb-10">
+          <h2 className="text-lg font-semibold text-dark mb-4">Tasks</h2>
+          <TaskList pending={pendingTasks} completed={completedTasks} />
+        </section>
+
+        {/* Schedule Section */}
+        <section id="schedule" className="mb-10">
+          <h2 className="text-lg font-semibold text-dark mb-4">Call Schedule</h2>
+          {windows.length > 0 ? (
+            <CallSchedule windows={windows} />
+          ) : (
+            <div className="bg-surface border border-warm-gray/20 rounded-xl shadow-card p-8 text-center text-sm text-muted">
+              No call windows configured yet. Tell Charu your preferred schedule during your next call.
+            </div>
+          )}
+        </section>
+
+        {/* Profile Section */}
+        <section id="profile" className="mb-10">
+          <h2 className="text-lg font-semibold text-dark mb-4">Profile</h2>
+          {profile ? (
+            <ProfileCard profile={profile} />
+          ) : (
+            <div className="bg-surface border border-warm-gray/20 rounded-xl shadow-card p-6 animate-pulse">
+              <div className="flex items-center gap-5">
+                <div className="w-14 h-14 rounded-full bg-warm-gray/30" />
+                <div className="space-y-2">
+                  <div className="h-4 w-32 bg-warm-gray/30 rounded" />
+                  <div className="h-3 w-24 bg-warm-gray/30 rounded" />
+                </div>
+              </div>
+            </div>
+          )}
         </section>
       </div>
     </>
