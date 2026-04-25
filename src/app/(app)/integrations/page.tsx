@@ -13,8 +13,6 @@ interface Integration {
   connected_at?: string;
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.charuai.com";
-
 export default function IntegrationsPage() {
   const { user } = useAuth();
   const [integrations, setIntegrations] = useState<Integration[]>([]);
@@ -29,8 +27,19 @@ export default function IntegrationsPage() {
     integrations.find((i) => i.service === service);
 
   const handleConnect = async (service: string) => {
-    const token = await user?.getIdToken();
-    window.location.href = `${API_BASE}/api/integrations/${service}/connect?token=${token}`;
+    const response = await authFetch(
+      `/api/integrations/${service}/connect?redirect=false`
+    );
+    if (!response.ok) {
+      alert("Could not start the connection flow. Please try again.");
+      return;
+    }
+    const data = (await response.json()) as { url?: string };
+    if (!data.url) {
+      alert("Could not start the connection flow. Please try again.");
+      return;
+    }
+    window.location.href = data.url;
   };
 
   const handleDisconnect = async (service: string) => {
