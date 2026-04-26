@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { authFetch } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
+import { navigateExternal } from "@/lib/navigation";
 import IntegrationCard from "@/components/integrations/IntegrationCard";
 import ComingSoonBadge from "@/components/integrations/ComingSoonBadge";
 
@@ -39,7 +40,7 @@ export default function IntegrationsPage() {
       alert("Could not start the connection flow. Please try again.");
       return;
     }
-    window.location.href = data.url;
+    navigateExternal(data.url);
   };
 
   const handleDisconnect = async (service: string) => {

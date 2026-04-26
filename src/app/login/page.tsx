@@ -153,6 +153,7 @@ export default function LoginPage() {
                   <input
                     key={i}
                     ref={(el) => { otpRefs.current[i] = el; }}
+                    aria-label={`Verification digit ${i + 1}`}
                     type="text"
                     inputMode="numeric"
                     maxLength={1}
