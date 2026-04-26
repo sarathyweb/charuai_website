@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -6,7 +7,13 @@ export default function Footer() {
       <div className="mx-auto max-w-container px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Logo */}
         <Link href="/" className="flex items-center">
-          <img src="/logo.svg" alt="Charu AI" className="h-6 brightness-0 invert" />
+          <Image
+            src="/logo.svg"
+            alt="Charu AI"
+            width={109}
+            height={24}
+            className="h-6 w-auto brightness-0 invert"
+          />
         </Link>
 
         {/* Links */}

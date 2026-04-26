@@ -2,81 +2,223 @@
 
 import { motion } from "framer-motion";
 import WhatsAppCta from "@/components/WhatsAppCta";
-import WhatsAppMockup from "@/components/WhatsAppMockup";
+import {
+  CalendarDaysIcon,
+  CheckCircleIcon,
+  EnvelopeOpenIcon,
+  PhoneArrowUpRightIcon,
+} from "@heroicons/react/24/outline";
+
+function ProductScene() {
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+      <div className="product-grid-bg absolute inset-0" />
+
+      <motion.div
+        initial={{ opacity: 0, y: 28, rotate: -1 }}
+        animate={{ opacity: 1, y: 0, rotate: 0 }}
+        transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute right-[-34px] top-24 hidden w-[560px] rounded-[28px] border border-warm-gray/50 bg-surface/95 p-5 shadow-[0_28px_90px_rgba(44,45,114,0.18)] lg:block"
+      >
+        <div className="mb-4 flex items-center justify-between">
+          <div>
+            <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
+              Today
+            </div>
+            <div className="text-xl font-semibold text-dark">Accountability plan</div>
+          </div>
+          <div className="rounded-full bg-green-50 px-3 py-1 text-[12px] font-medium text-green-700">
+            Live
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-3">
+          {[
+            ["3", "calls"],
+            ["7", "tasks"],
+            ["2", "goals"],
+          ].map(([value, label]) => (
+            <div
+              key={label}
+              className="rounded-xl border border-warm-gray/30 bg-background px-4 py-3"
+            >
+              <div className="text-2xl font-bold text-dark">{value}</div>
+              <div className="text-[12px] text-muted">{label} tracked</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-4 grid grid-cols-[1.1fr_0.9fr] gap-4">
+          <div className="rounded-2xl border border-warm-gray/30 bg-background p-4">
+            <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-dark">
+              <PhoneArrowUpRightIcon className="h-5 w-5 text-primary" />
+              Next call
+            </div>
+            <div className="rounded-xl bg-surface p-3">
+              <div className="text-[12px] text-muted">Morning plan</div>
+              <div className="text-lg font-semibold text-dark">8:00 - 8:30 AM</div>
+            </div>
+            <div className="mt-3 space-y-2">
+              {["Pick the one thing", "Block focus time", "Send recap"].map(
+                (item) => (
+                  <div key={item} className="flex items-center gap-2 text-[13px] text-muted">
+                    <CheckCircleIcon className="h-4 w-4 text-green-600" />
+                    {item}
+                  </div>
+                ),
+              )}
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <div className="rounded-2xl border border-warm-gray/30 bg-background p-4">
+              <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-dark">
+                <CalendarDaysIcon className="h-5 w-5 text-primary" />
+                Calendar
+              </div>
+              <div className="h-2 w-full rounded bg-accent-surface" />
+              <div className="mt-2 h-2 w-2/3 rounded bg-cta-blue/40" />
+            </div>
+            <div className="rounded-2xl border border-warm-gray/30 bg-background p-4">
+              <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-dark">
+                <EnvelopeOpenIcon className="h-5 w-5 text-primary" />
+                Gmail
+              </div>
+              <div className="text-[12px] text-muted">2 replies drafted</div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 34, rotate: 3 }}
+        animate={{ opacity: 1, y: 0, rotate: 0 }}
+        transition={{ duration: 0.8, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute bottom-[-42px] right-[18%] hidden w-[265px] rounded-[32px] border border-warm-gray/40 bg-dark p-3 shadow-[0_26px_70px_rgba(26,26,46,0.24)] lg:block"
+      >
+        <div className="rounded-[24px] bg-[#f5f7fb] p-4">
+          <div className="mb-4 flex items-center gap-3 border-b border-warm-gray/50 pb-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white">
+              C
+            </div>
+            <div>
+              <div className="text-sm font-semibold text-dark">Charu</div>
+              <div className="text-[11px] text-green-700">calling today</div>
+            </div>
+          </div>
+          <div className="space-y-3 text-sm">
+            <div className="max-w-[86%] rounded-2xl rounded-tl-sm bg-white px-3 py-2 text-dark shadow-sm">
+              What is the one thing that would make today count?
+            </div>
+            <div className="ml-auto max-w-[82%] rounded-2xl rounded-tr-sm bg-primary px-3 py-2 text-white shadow-sm">
+              Finish the launch deck.
+            </div>
+            <div className="max-w-[88%] rounded-2xl rounded-tl-sm bg-white px-3 py-2 text-dark shadow-sm">
+              Good. I blocked 10:30 and saved the follow-up task.
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
 export default function Hero() {
   return (
-    <section className="hero-gradient py-20 md:py-32 overflow-hidden relative">
-      <div className="max-w-[1120px] mx-auto px-6 flex flex-col md:flex-row items-center gap-12 relative z-10">
-        {/* Text column */}
-        <div className="md:w-[55%] flex flex-col gap-6">
+    <section className="relative overflow-hidden border-b border-warm-gray/30 bg-background">
+      <ProductScene />
+      <div className="relative z-10 mx-auto max-w-container px-6 pb-16 pt-16 md:pb-24 md:pt-24 lg:min-h-[720px]">
+        <div className="max-w-[680px]">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-5 inline-flex items-center rounded-full border border-primary/15 bg-surface/90 px-4 py-2 text-[13px] font-semibold text-primary shadow-sm"
           >
-            <span className="inline-block text-sm font-medium text-accent-warm tracking-wide uppercase mb-2">
-              Your AI accountability partner
-            </span>
+            AI accountability calls for people who need help starting
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="font-serif text-primary text-[2.25rem] md:text-[3.5rem] lg:text-[4rem] leading-[1.1]"
+            transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+            className="font-serif text-[3.25rem] leading-none text-primary md:text-[5rem]"
           >
-            You know what you need to do.{" "}
-            <span className="relative inline-block">
-              Charu gets you to actually do it.
-              <svg
-                className="absolute -bottom-2 left-0 w-full"
-                viewBox="0 0 300 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <motion.path
-                  d="M2 8C50 2 100 4 150 6C200 8 250 4 298 7"
-                  stroke="#507ABD"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
-                />
-              </svg>
-            </span>
+            Charu AI
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="text-muted text-lg max-w-xl"
+            transition={{ duration: 0.6, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-6 max-w-xl text-lg leading-8 text-muted md:text-xl"
           >
-            An AI accountability partner that calls your phone and checks in on
-            WhatsApp. Daily calls, calendar sync, and task tracking — no new app
-            to download.
+            A phone-based accountability partner that calls you, turns spoken
+            commitments into tasks and goals, checks your calendar, and follows up
+            on WhatsApp.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.6, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-8 max-w-[360px]"
           >
             <WhatsAppCta />
           </motion.div>
-        </div>
 
-        {/* Mockup column */}
-        <motion.div
-          className="md:w-[45%]"
-          initial={{ opacity: 0, x: 40, rotate: 2 }}
-          animate={{ opacity: 1, x: 0, rotate: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <WhatsAppMockup />
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.38, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-8 grid max-w-xl grid-cols-3 gap-3"
+          >
+            {[
+              ["2 min", "setup"],
+              ["0 apps", "to install"],
+              ["daily", "follow-through"],
+            ].map(([value, label]) => (
+              <div
+                key={label}
+                className="border-l border-primary/20 pl-3 text-[12px] uppercase tracking-[0.12em] text-muted"
+              >
+                <div className="text-lg font-bold normal-case tracking-normal text-dark">
+                  {value}
+                </div>
+                {label}
+              </div>
+            ))}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.48, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-8 rounded-2xl border border-warm-gray/30 bg-surface p-4 shadow-card lg:hidden"
+          >
+            <div className="flex items-center justify-between border-b border-warm-gray/20 pb-3">
+              <div>
+                <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
+                  Next call
+                </div>
+                <div className="text-base font-semibold text-dark">Morning plan</div>
+              </div>
+              <div className="rounded-full bg-green-50 px-3 py-1 text-[12px] font-medium text-green-700">
+                8:00 AM
+              </div>
+            </div>
+            <div className="mt-3 grid gap-2">
+              {["Choose one priority", "Save the follow-up task", "Send WhatsApp recap"].map(
+                (item) => (
+                  <div key={item} className="flex items-center gap-2 text-sm text-muted">
+                    <CheckCircleIcon className="h-4 w-4 text-green-600" />
+                    {item}
+                  </div>
+                ),
+              )}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

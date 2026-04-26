@@ -89,7 +89,7 @@ export default function TermsOfService() {
             Stopping or leaving
           </h2>
           <p className="text-base leading-relaxed">
-            Stop anytime by messaging "stop." We can terminate for abuse.
+            Stop anytime by messaging &quot;stop.&quot; We can terminate for abuse.
           </p>
         </section>
 

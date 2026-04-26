@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/lib/auth";
 
@@ -20,7 +21,14 @@ export default function DashboardNav() {
     <nav className="bg-surface border-b border-warm-gray/30 px-8 py-3 flex items-center justify-between sticky top-0 z-50">
       <div className="flex items-center gap-8">
         <Link href="/dashboard">
-          <img src="/logo.svg" alt="Charu AI" className="h-7" />
+          <Image
+            src="/logo.svg"
+            alt="Charu AI"
+            width={127}
+            height={28}
+            className="h-7 w-auto"
+            priority
+          />
         </Link>
         <div className="flex gap-1">
           {navLinks.map((link) => (

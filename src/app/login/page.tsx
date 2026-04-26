@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
@@ -81,7 +83,14 @@ export default function LoginPage() {
       <div className="flex-1 flex items-center justify-center px-6">
         <div className="bg-surface border border-warm-gray/30 rounded-2xl shadow-card w-full max-w-[400px] p-10">
           <div className="text-center mb-8">
-            <img src="/logo.svg" alt="Charu AI" className="h-8 mx-auto" />
+            <Image
+              src="/logo.svg"
+              alt="Charu AI"
+              width={145}
+              height={32}
+              className="h-8 w-auto mx-auto"
+              priority
+            />
           </div>
 
           {!otpSent ? (
@@ -175,7 +184,9 @@ export default function LoginPage() {
         </div>
       </div>
       <div className="text-center py-4">
-        <a href="/" className="text-xs text-muted underline">Back to charuai.com</a>
+        <Link href="/" className="text-xs text-muted underline">
+          Back to charuai.com
+        </Link>
       </div>
     </div>
   );

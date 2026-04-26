@@ -4,8 +4,8 @@ import FadeIn from "@/components/FadeIn";
 import WhatsAppCta from "@/components/WhatsAppCta";
 import {
   ChatBubbleLeftRightIcon,
-  PhoneArrowUpRightIcon,
   CheckBadgeIcon,
+  PhoneArrowUpRightIcon,
 } from "@heroicons/react/24/outline";
 import { type ComponentType, type SVGProps } from "react";
 
@@ -17,67 +17,63 @@ const steps: {
 }[] = [
   {
     number: "01",
-    title: "Say hi on WhatsApp",
-    desc: "Message Charu. Tell her your name and when you\u2019d like your calls. That\u2019s it \u2014 two minutes, no app to download.",
+    title: "Start in WhatsApp",
+    desc: "Say hello, set your name, and choose when Charu should call. Setup takes minutes.",
     icon: ChatBubbleLeftRightIcon,
   },
   {
     number: "02",
-    title: "Get daily check-in calls",
-    desc: "Morning call to plan your day. Afternoon call to check in. Evening call to wrap up. She asks what matters most and helps you start.",
+    title: "Answer the call",
+    desc: "Charu asks what matters, helps you pick the next action, and saves the plan.",
     icon: PhoneArrowUpRightIcon,
   },
   {
     number: "03",
-    title: "Actually finish things",
-    desc: "Your tasks get tracked, your calendar gets blocked, your emails get answered. All through the same WhatsApp chat you already use.",
+    title: "Close the loop",
+    desc: "Tasks, goals, calendar blocks, emails, and recaps stay connected through the day.",
     icon: CheckBadgeIcon,
   },
 ];
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="bg-surface py-20 md:py-28 relative">
-      <div className="max-w-[1120px] mx-auto px-6">
+    <section id="how-it-works" className="bg-surface py-20 md:py-28">
+      <div className="mx-auto max-w-container px-6">
         <FadeIn>
-          <h2 className="font-serif text-primary text-[1.75rem] md:text-[2.25rem] lg:text-[2.5rem] leading-[1.15] text-center">
-            How Charu works
-          </h2>
-          <p className="text-muted text-lg text-center mt-4 mb-16">
-            Three steps to a calmer day.
-          </p>
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-accent-warm">
+              How it works
+            </p>
+            <h2 className="mt-3 font-serif text-[1.85rem] leading-tight text-primary md:text-[2.6rem]">
+              The whole flow fits into the tools you already use.
+            </h2>
+          </div>
         </FadeIn>
 
-        <div className="grid md:grid-cols-3 gap-10 max-w-4xl mx-auto relative">
-          {/* Connecting line (desktop) */}
-          <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-[2px] bg-gradient-to-r from-primary/20 via-accent-warm/30 to-primary/20" />
+        <div className="relative mx-auto mt-14 grid max-w-5xl gap-5 md:grid-cols-3">
+          <div className="absolute left-[16%] right-[16%] top-[42px] hidden h-px bg-warm-gray md:block" />
 
           {steps.map((step, i) => (
-            <FadeIn key={step.number} delay={i * 0.2}>
-              <div className="flex flex-col items-center text-center gap-4 relative">
-                <div className="w-20 h-20 rounded-2xl bg-accent-surface flex items-center justify-center shadow-sm relative z-10">
-                  <step.icon className="w-9 h-9 text-primary" />
+            <FadeIn key={step.number} delay={i * 0.12}>
+              <div className="relative h-full rounded-2xl border border-warm-gray/30 bg-background p-6 text-center">
+                <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl border border-warm-gray/30 bg-surface shadow-sm">
+                  <step.icon className="h-9 w-9 text-primary" />
                 </div>
-                <span className="step-number font-serif text-sm font-bold tracking-wider uppercase">
+                <span className="mt-5 block text-[12px] font-bold uppercase tracking-[0.16em] text-accent-warm">
                   Step {step.number}
                 </span>
-                <h3 className="font-sans font-semibold text-text text-lg">
+                <h3 className="mt-2 text-lg font-semibold text-dark">
                   {step.title}
                 </h3>
-                <p className="text-muted text-[0.95rem] leading-relaxed">
-                  {step.desc}
-                </p>
+                <p className="mt-3 text-sm leading-6 text-muted">{step.desc}</p>
               </div>
             </FadeIn>
           ))}
         </div>
 
-        <FadeIn delay={0.6}>
-          <div className="flex flex-col items-center gap-4 mt-16">
+        <FadeIn delay={0.3}>
+          <div className="mx-auto mt-14 max-w-[360px]">
             <WhatsAppCta />
-            <p className="text-muted text-sm tracking-[0.01em]">
-              Your day, handled.
-            </p>
           </div>
         </FadeIn>
       </div>

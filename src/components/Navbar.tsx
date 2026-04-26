@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
+  { label: "Product", href: "#product" },
   { label: "How It Works", href: "#how-it-works" },
   { label: "Features", href: "#features" },
   { label: "About", href: "#about" },
@@ -33,7 +35,14 @@ export default function Navbar() {
     >
       <div className="mx-auto max-w-container flex items-center justify-between px-6 py-3">
         <Link href="/" className="flex items-center">
-          <img src="/logo.svg" alt="Charu AI" className="h-7" />
+          <Image
+            src="/logo.svg"
+            alt="Charu AI"
+            width={127}
+            height={28}
+            className="h-7 w-auto"
+            priority
+          />
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
@@ -58,7 +67,7 @@ export default function Navbar() {
           </Link>
           <a
             href="#cta"
-            className="bg-primary text-white text-sm tracking-[0.01em] font-medium px-5 py-2 rounded-lg hover:opacity-90 transition-all hover:shadow-md"
+            className="rounded-lg bg-primary px-5 py-2 text-sm font-semibold tracking-[0.01em] text-white transition-colors hover:bg-cta-blue"
           >
             Try Charu
           </a>
@@ -113,14 +122,22 @@ export default function Navbar() {
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: navLinks.length * 0.1 }}
+              className="flex items-center gap-3 border-t border-warm-gray/50 py-3"
             >
               <Link
                 href="/dashboard"
-                className="block py-3 text-sm tracking-[0.01em] text-primary font-medium"
+                className="text-sm tracking-[0.01em] text-primary font-medium"
                 onClick={() => setMenuOpen(false)}
               >
                 Dashboard
               </Link>
+              <a
+                href="#cta"
+                className="ml-auto rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white"
+                onClick={() => setMenuOpen(false)}
+              >
+                Try Charu
+              </a>
             </motion.div>
           </motion.div>
         )}

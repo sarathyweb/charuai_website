@@ -10,54 +10,65 @@ import { type ComponentType, type SVGProps } from "react";
 
 const painCards: {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
+  title: string;
   text: string;
 }[] = [
   {
     icon: BoltSlashIcon,
-    text: "You have 20 things to do and can\u2019t start any of them. It\u2019s not laziness \u2014 your brain just won\u2019t bridge the gap between knowing and doing.",
+    title: "Starting is the bottleneck",
+    text: "You can see the work clearly, but the first step still feels like a wall.",
   },
   {
     icon: ClockIcon,
-    text: "Your day ends and you\u2019re not sure what you actually did. The guilt hits at 11pm, and you promise tomorrow will be different. It never is.",
+    title: "Days blur together",
+    text: "By night, you remember the pressure more than the progress.",
   },
   {
     icon: DevicePhoneMobileIcon,
-    text: "You\u2019ve tried the planners. The apps. The reminders you swipe away without reading. They all worked for a week \u2014 then became background noise.",
+    title: "Reminders go quiet",
+    text: "Apps, planners, and notifications work until your brain turns them into background noise.",
   },
 ];
 
 export default function PainSection() {
   return (
-    <section className="bg-accent-surface py-20 md:py-28 relative overflow-hidden">
-      {/* Decorative blob */}
-      <div className="blob-decoration w-[300px] h-[300px] bg-accent-warm/20 -top-20 -right-20 absolute" />
-
-      <div className="max-w-[1120px] mx-auto px-6 relative z-10">
+    <section className="bg-accent-surface py-20 md:py-28">
+      <div className="mx-auto max-w-container px-6">
         <FadeIn>
-          <h2 className="font-serif text-primary text-[1.75rem] md:text-[2.25rem] lg:text-[2.5rem] leading-[1.15] text-center mb-4">
-            Your to-do list is running your life
-          </h2>
-          <p className="text-muted text-center mb-14 max-w-md mx-auto">
-            Sound familiar?
-          </p>
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-accent-warm">
+              Built for the gap between knowing and doing
+            </p>
+            <h2 className="mt-3 font-serif text-[1.85rem] leading-tight text-primary md:text-[2.6rem]">
+              Your to-do list is not the problem. Getting into motion is.
+            </h2>
+            <p className="mt-4 text-base leading-7 text-muted">
+              Charu is designed for the moment when motivation is gone but a real
+              person asking the right question would still help.
+            </p>
+          </div>
         </FadeIn>
 
-        <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <div className="mx-auto mt-12 grid max-w-5xl gap-5 md:grid-cols-3">
           {painCards.map((card, i) => (
-            <FadeIn key={i} delay={i * 0.15}>
-              <div className="bg-surface rounded-xl shadow-card p-6 card-hover h-full">
-                <card.icon className="w-7 h-7 text-accent-warm mb-3" />
-                <p className="text-text leading-relaxed">{card.text}</p>
+            <FadeIn key={card.title} delay={i * 0.1}>
+              <div className="h-full rounded-2xl border border-warm-gray/30 bg-surface p-6 shadow-card transition-shadow hover:shadow-card-hover">
+                <card.icon className="mb-4 h-7 w-7 text-primary" />
+                <h3 className="text-base font-semibold text-dark">{card.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-muted">{card.text}</p>
               </div>
             </FadeIn>
           ))}
         </div>
 
-        <FadeIn delay={0.5}>
-          <p className="text-center text-muted text-lg mt-14 max-w-xl mx-auto italic">
-            Imagine ending every day knowing you actually did the thing. Not
-            everything — just the thing that mattered.
-          </p>
+        <FadeIn delay={0.25}>
+          <div className="mx-auto mt-10 max-w-3xl rounded-2xl border border-primary/10 bg-surface px-6 py-5 text-center shadow-card">
+            <p className="text-base leading-7 text-dark">
+              Charu does not ask you to become a different kind of person. It gives
+              your day the kind of external structure that makes follow-through
+              possible.
+            </p>
+          </div>
         </FadeIn>
       </div>
     </section>

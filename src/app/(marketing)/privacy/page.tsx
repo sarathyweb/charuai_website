@@ -31,7 +31,7 @@ export default function PrivacyPolicy() {
           </h2>
           <p className="text-base leading-relaxed">
             Accountability calls, task tracking, calendar integration, email
-            management. We don't sell your data or use it for advertising.
+            management. We don&apos;t sell your data or use it for advertising.
           </p>
         </section>
 
@@ -40,7 +40,7 @@ export default function PrivacyPolicy() {
             WhatsApp and Twilio
           </h2>
           <p className="text-base leading-relaxed">
-            Twilio routes messages and calls. Twilio doesn't store message
+            Twilio routes messages and calls. Twilio doesn&apos;t store message
             content beyond delivery. See the{" "}
             <a
               href="https://www.twilio.com/en-us/legal/privacy"
@@ -80,7 +80,7 @@ export default function PrivacyPolicy() {
           </h2>
           <p className="text-base leading-relaxed">
             Data kept while account active. Deleted within 30 days of account
-            deletion. Delete by messaging "delete my account" or emailing{" "}
+            deletion. Delete by messaging &quot;delete my account&quot; or emailing{" "}
             <a
               href={`mailto:${CONTACT_EMAIL}`}
               className="text-primary underline"

@@ -10,8 +10,8 @@ export default function WhatsAppCta() {
   useEffect(() => {
     if (canvasRef.current) {
       QRCode.toCanvas(canvasRef.current, WHATSAPP_URL_WITH_UTM, {
-        width: 200,
-        margin: 2,
+        width: 148,
+        margin: 1,
         color: {
           dark: "#2C2D72",
           light: "#ffffff",
@@ -21,30 +21,35 @@ export default function WhatsAppCta() {
   }, []);
 
   return (
-    <div>
-      {/* Desktop: QR code */}
-      <div className="hidden md:flex flex-col items-center gap-4">
-        <div className="p-3 bg-white rounded-2xl shadow-qr">
-          <canvas ref={canvasRef} className="rounded-lg" />
-        </div>
-        <p className="text-sm text-dark font-medium">Scan to chat with Charu</p>
+    <div className="w-full">
+      <div className="hidden rounded-2xl border border-warm-gray/30 bg-surface p-4 shadow-card md:block">
         <a
           href={WHATSAPP_URL_WITH_UTM}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-primary underline underline-offset-4 hover:opacity-80 transition-opacity"
+          className="block rounded-xl bg-primary px-5 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-cta-blue focus:outline-none focus:ring-4 focus:ring-primary/20"
         >
-          Or open on your phone
+          Start on WhatsApp
         </a>
+        <div className="mt-4 flex items-center gap-4">
+          <div className="rounded-xl border border-warm-gray/30 bg-white p-2">
+            <canvas ref={canvasRef} className="rounded-lg" />
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-dark">Scan to chat</p>
+            <p className="mt-1 text-[12px] leading-5 text-muted">
+              Works from the WhatsApp account already on your phone.
+            </p>
+          </div>
+        </div>
       </div>
 
-      {/* Mobile: pill button */}
       <div className="md:hidden">
         <a
           href={WHATSAPP_URL_WITH_UTM}
           target="_blank"
           rel="noopener noreferrer"
-          className="relative block w-full text-center bg-primary text-white font-medium py-3.5 px-6 rounded-full hover:opacity-90 transition-all hover:shadow-lg active:scale-[0.98]"
+          className="block w-full rounded-full bg-primary px-6 py-3.5 text-center font-semibold text-white transition-all hover:opacity-90 active:scale-[0.98]"
         >
           Message Charu on WhatsApp
         </a>
