@@ -81,7 +81,7 @@ export default function GoalsPanel({
     await onUpdate(goalId, {
       title: editTitle.trim(),
       description: editDescription.trim() || null,
-      target_date: editTargetDate || undefined,
+      target_date: editTargetDate || null,
     });
     setEditingId(null);
   };

@@ -6,6 +6,7 @@ const sections = [
   { id: "goals", label: "Goals" },
   { id: "schedule", label: "Schedule" },
   { id: "call-history", label: "Calls" },
+  { id: "integrations", label: "Integrations" },
   { id: "settings", label: "Settings" },
 ];
 

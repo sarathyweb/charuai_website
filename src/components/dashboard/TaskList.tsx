@@ -42,10 +42,22 @@ function formatDateTime(date: string | null): string {
   });
 }
 
-function defaultSnoozeValue(): string {
-  const date = new Date(Date.now() + 24 * 60 * 60 * 1000);
+export function formatDateTimeLocalInput(date: Date): string {
+  const pad = (value: number) => String(value).padStart(2, "0");
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+
+function defaultSnoozeValue(now: Date = new Date()): string {
+  const date = new Date(now.getTime() + 24 * 60 * 60 * 1000);
   date.setMinutes(0, 0, 0);
-  return date.toISOString().slice(0, 16);
+  return formatDateTimeLocalInput(date);
+}
+
+function sourceLabel(source: string): string {
+  return source
+    .split("_")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
 }
 
 interface TaskListProps {
@@ -218,6 +230,13 @@ export default function TaskList({
                           {task.completed_at &&
                             ` - Completed ${formatDateTime(task.completed_at)}`}
                         </div>
+                        {task.source && (
+                          <div className="mt-2">
+                            <span className="rounded bg-background px-2 py-0.5 text-[11px] font-medium text-muted">
+                              {sourceLabel(task.source)}
+                            </span>
+                          </div>
+                        )}
                       </>
                     )}
                     {isSnoozing && (

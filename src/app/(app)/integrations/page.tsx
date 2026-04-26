@@ -1,51 +1,42 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { authFetch } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
+import {
+  connectIntegration,
+  disconnectIntegration,
+  getIntegrations,
+  type Integration,
+  type IntegrationService,
+} from "@/lib/dashboardApi";
 import { navigateExternal } from "@/lib/navigation";
 import IntegrationCard from "@/components/integrations/IntegrationCard";
 import ComingSoonBadge from "@/components/integrations/ComingSoonBadge";
-
-interface Integration {
-  service: string;
-  connected: boolean;
-  email?: string;
-  connected_at?: string;
-}
 
 export default function IntegrationsPage() {
   const { user } = useAuth();
   const [integrations, setIntegrations] = useState<Integration[]>([]);
 
   useEffect(() => {
-    authFetch("/api/integrations")
-      .then((r) => r.ok ? r.json() : { integrations: [] })
-      .then((d) => setIntegrations(d.integrations || []));
+    getIntegrations()
+      .then(setIntegrations)
+      .catch(() => setIntegrations([]));
   }, []);
 
-  const google = (service: string) =>
+  const google = (service: IntegrationService) =>
     integrations.find((i) => i.service === service);
 
-  const handleConnect = async (service: string) => {
-    const response = await authFetch(
-      `/api/integrations/${service}/connect?redirect=false`
-    );
-    if (!response.ok) {
+  const handleConnect = async (service: IntegrationService) => {
+    try {
+      navigateExternal(await connectIntegration(service));
+    } catch {
       alert("Could not start the connection flow. Please try again.");
-      return;
     }
-    const data = (await response.json()) as { url?: string };
-    if (!data.url) {
-      alert("Could not start the connection flow. Please try again.");
-      return;
-    }
-    navigateExternal(data.url);
   };
 
-  const handleDisconnect = async (service: string) => {
+  const handleDisconnect = async (service: IntegrationService) => {
     if (!confirm(`Disconnect ${service.replace("_", " ")}?`)) return;
-    await authFetch(`/api/integrations/${service}/disconnect`, { method: "DELETE" });
+    await disconnectIntegration(service);
     setIntegrations((prev) =>
       prev.map((i) => i.service === service ? { ...i, connected: false, email: undefined } : i)
     );

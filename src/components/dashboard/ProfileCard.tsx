@@ -8,12 +8,16 @@ import type { Profile, ProfileUpdatePayload } from "@/lib/dashboardApi";
 interface ProfileCardProps {
   profile: Profile;
   busy: boolean;
+  gmailConnected: boolean;
+  onConnectGmail: () => Promise<void>;
   onUpdate: (payload: ProfileUpdatePayload) => Promise<void>;
 }
 
 export default function ProfileCard({
   profile,
   busy,
+  gmailConnected,
+  onConnectGmail,
   onUpdate,
 }: ProfileCardProps) {
   const { logout } = useAuth();
@@ -51,8 +55,8 @@ export default function ProfileCard({
     await onUpdate({
       name: name.trim() || null,
       timezone: timezone.trim() || null,
-      urgent_email_calls_enabled: urgentEmailCalls,
-      auto_task_from_emails_enabled: autoTaskFromEmails,
+      urgent_email_calls_enabled: gmailConnected ? urgentEmailCalls : false,
+      auto_task_from_emails_enabled: gmailConnected ? autoTaskFromEmails : false,
       email_automation_quiet_hours_start: quietHoursStart,
       email_automation_quiet_hours_end: quietHoursEnd,
     });
@@ -112,6 +116,7 @@ export default function ProfileCard({
                 type="checkbox"
                 checked={urgentEmailCalls}
                 onChange={(event) => setUrgentEmailCalls(event.target.checked)}
+                disabled={!gmailConnected}
                 className="h-4 w-4 rounded border-warm-gray/50 text-primary focus:ring-primary"
               />
             </label>
@@ -123,6 +128,7 @@ export default function ProfileCard({
                 onChange={(event) =>
                   setAutoTaskFromEmails(event.target.checked)
                 }
+                disabled={!gmailConnected}
                 className="h-4 w-4 rounded border-warm-gray/50 text-primary focus:ring-primary"
               />
             </label>
@@ -145,6 +151,20 @@ export default function ProfileCard({
               />
             </label>
           </div>
+
+          {!gmailConnected && (
+            <div className="flex flex-col gap-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-3 text-[12px] text-amber-800 sm:flex-row sm:items-center sm:justify-between">
+              <span>Connect Gmail before enabling email automation.</span>
+              <button
+                type="button"
+                disabled={busy}
+                onClick={onConnectGmail}
+                className="rounded-lg bg-primary px-3 py-1.5 text-[12px] font-medium text-white disabled:opacity-60"
+              >
+                Connect Gmail
+              </button>
+            </div>
+          )}
 
           <div className="flex gap-2 sm:justify-end">
             <button

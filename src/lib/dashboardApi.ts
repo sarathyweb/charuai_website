@@ -3,6 +3,7 @@ import { authFetch } from "./api";
 export type TaskStatus = "pending" | "completed" | "snoozed";
 export type GoalStatus = "active" | "completed" | "abandoned";
 export type WindowType = "morning" | "afternoon" | "evening";
+export type IntegrationService = "google_calendar" | "gmail";
 
 export interface DashboardData {
   streak: { current: number; best: number };
@@ -84,6 +85,13 @@ export interface CallHistoryFilters {
   limit?: number;
 }
 
+export interface Integration {
+  service: IntegrationService;
+  connected: boolean;
+  email?: string;
+  connected_at?: string;
+}
+
 export interface TaskUpdatePayload {
   title?: string;
   priority?: number;
@@ -92,13 +100,13 @@ export interface TaskUpdatePayload {
 export interface GoalWritePayload {
   title: string;
   description?: string | null;
-  target_date?: string;
+  target_date?: string | null;
 }
 
 export interface GoalUpdatePayload {
   title?: string;
   description?: string | null;
-  target_date?: string;
+  target_date?: string | null;
 }
 
 export interface ProfileUpdatePayload {
@@ -303,5 +311,31 @@ export async function updateCallWindow(
 export async function deleteCallWindow(windowType: WindowType): Promise<void> {
   await parseJson(
     await authFetch(`/api/call-windows/${windowType}`, { method: "DELETE" }),
+  );
+}
+
+export async function getIntegrations(): Promise<Integration[]> {
+  const data = await parseJson<{ integrations: Integration[] }>(
+    await authFetch("/api/integrations"),
+  );
+  return data.integrations;
+}
+
+export async function connectIntegration(
+  service: IntegrationService,
+): Promise<string> {
+  const data = await parseJson<{ url: string }>(
+    await authFetch(`/api/integrations/${service}/connect?redirect=false`),
+  );
+  return data.url;
+}
+
+export async function disconnectIntegration(
+  service: IntegrationService,
+): Promise<void> {
+  await parseJson(
+    await authFetch(`/api/integrations/${service}/disconnect`, {
+      method: "DELETE",
+    }),
   );
 }

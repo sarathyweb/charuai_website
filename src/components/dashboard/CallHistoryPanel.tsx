@@ -44,6 +44,11 @@ function formatDuration(seconds: number | null): string {
   return `${minutes}m ${remaining}s`;
 }
 
+function confidenceLabel(value: string | null): string | null {
+  if (!value) return null;
+  return titleize(value);
+}
+
 interface CallHistoryPanelProps {
   calls: CallHistoryItem[];
   filters: CallHistoryFilters;
@@ -147,14 +152,41 @@ export default function CallHistoryPanel({
                     Scheduled {formatDateTime(call.scheduled_time)} &middot;{" "}
                     {formatDuration(call.duration_seconds)}
                   </div>
-                  {(call.goal || call.next_action || call.tomorrow_intention) && (
+                  {(call.goal ||
+                    call.next_action ||
+                    call.accomplishments ||
+                    call.tomorrow_intention) && (
                     <div className="mt-2 grid gap-1 text-[13px] text-dark">
                       {call.goal && <div>Goal: {call.goal}</div>}
                       {call.next_action && (
                         <div>Next action: {call.next_action}</div>
                       )}
+                      {call.accomplishments && (
+                        <div>Accomplishments: {call.accomplishments}</div>
+                      )}
                       {call.tomorrow_intention && (
                         <div>Tomorrow: {call.tomorrow_intention}</div>
+                      )}
+                    </div>
+                  )}
+                  {(call.call_outcome_confidence ||
+                    call.reflection_confidence ||
+                    call.recap_sent_at) && (
+                    <div className="mt-2 flex flex-wrap gap-1.5">
+                      {confidenceLabel(call.call_outcome_confidence) && (
+                        <span className="rounded bg-background px-2 py-1 text-[11px] text-muted">
+                          Outcome: {confidenceLabel(call.call_outcome_confidence)}
+                        </span>
+                      )}
+                      {confidenceLabel(call.reflection_confidence) && (
+                        <span className="rounded bg-background px-2 py-1 text-[11px] text-muted">
+                          Reflection: {confidenceLabel(call.reflection_confidence)}
+                        </span>
+                      )}
+                      {call.recap_sent_at && (
+                        <span className="rounded bg-background px-2 py-1 text-[11px] text-muted">
+                          Recap sent {formatDateTime(call.recap_sent_at)}
+                        </span>
                       )}
                     </div>
                   )}

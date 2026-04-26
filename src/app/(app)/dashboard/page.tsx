@@ -10,20 +10,25 @@ import CallSchedule from "@/components/dashboard/CallSchedule";
 import ProfileCard from "@/components/dashboard/ProfileCard";
 import GoalsPanel from "@/components/dashboard/GoalsPanel";
 import CallHistoryPanel from "@/components/dashboard/CallHistoryPanel";
+import IntegrationSummary from "@/components/dashboard/IntegrationSummary";
 import WhatsAppCta from "@/components/WhatsAppCta";
+import { navigateExternal } from "@/lib/navigation";
 import {
   abandonGoal,
   ApiError,
   completeGoal,
   completeTask,
+  connectIntegration,
   createCallWindow,
   createGoal,
   deleteCallWindow,
   deleteGoal,
   deleteTask,
+  disconnectIntegration,
   getCallHistory,
   getCallWindows,
   getGoals,
+  getIntegrations,
   getProfile,
   getProgress,
   getTasks,
@@ -43,6 +48,8 @@ import {
   type GoalStatus,
   type GoalUpdatePayload,
   type GoalWritePayload,
+  type Integration,
+  type IntegrationService,
   type Profile,
   type ProfileUpdatePayload,
   type Task,
@@ -83,6 +90,7 @@ export default function DashboardPage() {
   const [windows, setWindows] = useState<CallWindow[]>([]);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [calls, setCalls] = useState<CallHistoryItem[]>([]);
+  const [integrations, setIntegrations] = useState<Integration[]>([]);
   const [callFilters, setCallFilters] = useState<CallHistoryFilters>({
     limit: 25,
   });
@@ -103,6 +111,7 @@ export default function DashboardPage() {
         abandonedGoals,
         loadedWindows,
         loadedCalls,
+        loadedIntegrations,
       ] = await Promise.all([
         getProgress(),
         getTasks("pending"),
@@ -113,6 +122,7 @@ export default function DashboardPage() {
         getGoals("abandoned"),
         getCallWindows(),
         getCallHistory(callFilters),
+        getIntegrations(),
       ]);
 
       setProfile(loadedProfile);
@@ -129,6 +139,7 @@ export default function DashboardPage() {
       });
       setWindows(loadedWindows);
       setCalls(loadedCalls);
+      setIntegrations(loadedIntegrations);
     } catch (err) {
       if (err instanceof ApiError && err.status === 404) {
         setNeedsOnboarding(true);
@@ -203,6 +214,19 @@ export default function DashboardPage() {
   const handleWindowDelete = (windowType: WindowType) =>
     runMutation("Call window delete", () => deleteCallWindow(windowType));
 
+  const handleIntegrationConnect = (service: IntegrationService) =>
+    runMutation("Integration connect", async () => {
+      const url = await connectIntegration(service);
+      navigateExternal(url);
+    });
+
+  const handleIntegrationDisconnect = (service: IntegrationService) =>
+    runMutation("Integration disconnect", () => disconnectIntegration(service));
+
+  const gmailConnected =
+    integrations.find((integration) => integration.service === "gmail")?.connected ??
+    false;
+
   if (needsOnboarding) {
     return (
       <div className="max-w-md mx-auto px-8 py-20 text-center">
@@ -250,7 +274,7 @@ export default function DashboardPage() {
               {[
                 ["Pending", tasks.pending.length],
                 ["Goals", goals.active.length],
-                ["Calls", calls.length],
+                ["Connected", integrations.filter((item) => item.connected).length],
               ].map(([label, value]) => (
                 <div
                   key={label}
@@ -350,12 +374,24 @@ export default function DashboardPage() {
           />
         </section>
 
+        <section id="integrations" className="mb-10">
+          <h2 className="text-lg font-semibold text-dark mb-4">Integrations</h2>
+          <IntegrationSummary
+            integrations={integrations}
+            busy={busyAction !== null}
+            onConnect={handleIntegrationConnect}
+            onDisconnect={handleIntegrationDisconnect}
+          />
+        </section>
+
         <section id="settings" className="mb-10">
           <h2 className="text-lg font-semibold text-dark mb-4">Settings</h2>
           {profile ? (
             <ProfileCard
               profile={profile}
               busy={busyAction !== null}
+              gmailConnected={gmailConnected}
+              onConnectGmail={() => handleIntegrationConnect("gmail")}
               onUpdate={handleProfileUpdate}
             />
           ) : (

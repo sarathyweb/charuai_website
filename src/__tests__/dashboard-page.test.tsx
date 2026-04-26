@@ -6,6 +6,7 @@ import { authFetch } from "@/lib/api";
 const mocks = vi.hoisted(() => ({
   push: vi.fn(),
   logout: vi.fn(),
+  navigateExternal: vi.fn(),
 }));
 
 vi.mock("@/lib/api", () => ({
@@ -24,6 +25,10 @@ vi.mock("next/navigation", () => ({
     replace: vi.fn(),
   }),
   usePathname: () => "/dashboard",
+}));
+
+vi.mock("@/lib/navigation", () => ({
+  navigateExternal: mocks.navigateExternal,
 }));
 
 type RequestRecord = {
@@ -56,7 +61,7 @@ const pendingTask = {
   title: "Send invoice",
   priority: 80,
   status: "pending",
-  source: "user_mention",
+  source: "gmail",
   snoozed_until: null,
   created_at: "2026-04-25T10:00:00Z",
   completed_at: null,
@@ -137,11 +142,16 @@ const call = {
   next_action: "Write tests",
   commitments: ["Open PR"],
   call_outcome_confidence: "clear",
-  accomplishments: null,
+  accomplishments: "Cleared the launch blocker",
   tomorrow_intention: null,
-  reflection_confidence: null,
-  recap_sent_at: null,
+  reflection_confidence: "clear",
+  recap_sent_at: "2026-04-26T12:07:00Z",
 };
+
+const integrations = [
+  { service: "google_calendar", connected: true, email: "asha@example.com" },
+  { service: "gmail", connected: true, email: "asha@example.com" },
+];
 
 function json(data: unknown, status = 200): Promise<Response> {
   return Promise.resolve(
@@ -152,13 +162,18 @@ function json(data: unknown, status = 200): Promise<Response> {
   );
 }
 
-function setupDashboard() {
+function setupDashboard(overrides?: {
+  profile?: typeof profile;
+  integrations?: typeof integrations;
+}) {
   const requests: RequestRecord[] = [];
   const authFetchMock = vi.mocked(authFetch);
+  const profileData = overrides?.profile ?? profile;
+  const integrationData = overrides?.integrations ?? integrations;
 
   authFetchMock.mockImplementation((path, options) => {
     requests.push({ path, options });
-    if (path === "/api/user/profile") return json(profile);
+    if (path === "/api/user/profile") return json(profileData);
     if (path === "/api/progress") return json(progress);
     if (path === "/api/tasks?status=pending") return json({ tasks: [pendingTask] });
     if (path === "/api/tasks?status=completed") {
@@ -176,6 +191,7 @@ function setupDashboard() {
     if (path.startsWith("/api/call-history?")) {
       return json({ calls: [call], count: 1 });
     }
+    if (path === "/api/integrations") return json({ integrations: integrationData });
 
     if (path === "/api/tasks/1") return json({ task: pendingTask });
     if (path === "/api/tasks/1/complete") return json({ task: pendingTask });
@@ -187,8 +203,14 @@ function setupDashboard() {
     if (path === "/api/goals/10/complete") return json({ goal: activeGoal });
     if (path === "/api/goals/10/abandon") return json({ goal: activeGoal });
 
-    if (path === "/api/user/profile") return json(profile);
+    if (path === "/api/user/profile") return json(profileData);
     if (path === "/api/call-windows/morning") return json({ window: morningWindow });
+    if (path === "/api/integrations/gmail/connect?redirect=false") {
+      return json({ url: "https://api.example.test/auth/google/start?token=abc" });
+    }
+    if (path === "/api/integrations/gmail/disconnect") {
+      return json({ status: "disconnected", service: "gmail" });
+    }
 
     return json({});
   });
@@ -220,6 +242,7 @@ beforeEach(() => {
   vi.mocked(authFetch).mockReset();
   mocks.push.mockReset();
   mocks.logout.mockReset();
+  mocks.navigateExternal.mockReset();
   vi.spyOn(window, "confirm").mockReturnValue(true);
 });
 
@@ -231,7 +254,13 @@ describe("DashboardPage", () => {
     expect(screen.getByText("Launch beta")).toBeDefined();
     expect(screen.getByText("Morning Call")).toBeDefined();
     expect(screen.getByText(/Ship the dashboard/)).toBeDefined();
+    expect(screen.getByText(/Cleared the launch blocker/)).toBeDefined();
+    expect(screen.getByText(/Outcome: Clear/)).toBeDefined();
+    expect(screen.getByText(/Reflection: Clear/)).toBeDefined();
+    expect(screen.getByText(/Recap sent/)).toBeDefined();
     expect(screen.getByText("+15551234567")).toBeDefined();
+    expect(screen.getByText("Google Calendar")).toBeDefined();
+    expect(screen.getAllByText("Gmail").length).toBeGreaterThan(0);
 
     await waitFor(() => {
       expect(requests.map((request) => request.path)).toEqual(
@@ -246,6 +275,7 @@ describe("DashboardPage", () => {
           "/api/goals?status=abandoned",
           "/api/call-windows",
           "/api/call-history?limit=25",
+          "/api/integrations",
         ]),
       );
     });
@@ -330,6 +360,22 @@ describe("DashboardPage", () => {
       }),
     );
 
+    fireEvent.click(screen.getByLabelText("Edit Launch beta"));
+    fireEvent.change(screen.getByLabelText("Goal description"), {
+      target: { value: "" },
+    });
+    fireEvent.change(screen.getByLabelText("Goal target date"), {
+      target: { value: "" },
+    });
+    fireEvent.click(screen.getByLabelText("Save Launch beta"));
+    await waitFor(() =>
+      expectJsonBody(latestRequest(requests, "/api/goals/10", "PATCH"), {
+        title: "Launch beta",
+        description: null,
+        target_date: null,
+      }),
+    );
+
     fireEvent.click(screen.getByLabelText("Complete Launch beta"));
     await waitFor(() =>
       expect(latestRequest(requests, "/api/goals/10/complete", "POST")).toBeDefined(),
@@ -409,6 +455,37 @@ describe("DashboardPage", () => {
           request.path.includes("/api/call-history?status=completed"),
         ),
       ).toBe(true),
+    );
+  });
+
+  test("gates email automation on Gmail and wires dashboard integrations", async () => {
+    const requests = setupDashboard({
+      integrations: [
+        { service: "google_calendar", connected: true, email: "asha@example.com" },
+        { service: "gmail", connected: false },
+      ],
+    });
+
+    expect(
+      await screen.findByText("Connect Gmail before enabling email automation."),
+    ).toBeDefined();
+    expect((screen.getByLabelText("Urgent email calls") as HTMLInputElement).disabled)
+      .toBe(true);
+    expect(
+      (screen.getByLabelText("Auto-task from emails") as HTMLInputElement).disabled,
+    ).toBe(true);
+
+    fireEvent.click(screen.getByRole("button", { name: "Connect Gmail" }));
+    await waitFor(() =>
+      expect(
+        latestRequest(
+          requests,
+          "/api/integrations/gmail/connect?redirect=false",
+        ),
+      ).toBeDefined(),
+    );
+    expect(mocks.navigateExternal).toHaveBeenCalledWith(
+      "https://api.example.test/auth/google/start?token=abc",
     );
   });
 });
