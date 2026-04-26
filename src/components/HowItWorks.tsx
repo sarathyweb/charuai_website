@@ -3,8 +3,8 @@
 import FadeIn from "@/components/FadeIn";
 import WhatsAppCta from "@/components/WhatsAppCta";
 import {
+  CalendarDaysIcon,
   ChatBubbleLeftRightIcon,
-  CheckBadgeIcon,
   PhoneArrowUpRightIcon,
 } from "@heroicons/react/24/outline";
 import { type ComponentType, type SVGProps } from "react";
@@ -18,20 +18,20 @@ const steps: {
   {
     number: "01",
     title: "Start in WhatsApp",
-    desc: "Say hello, set your name, and choose when Charu should call. Setup takes minutes.",
+    desc: "Message Charu, set your name and timezone, and choose when accountability calls should happen.",
     icon: ChatBubbleLeftRightIcon,
   },
   {
     number: "02",
-    title: "Answer the call",
-    desc: "Charu asks what matters, helps you pick the next action, and saves the plan.",
-    icon: PhoneArrowUpRightIcon,
+    title: "Connect your work context",
+    desc: "Calendar and Gmail give Charu the schedule and follow-up context needed to make each call useful.",
+    icon: CalendarDaysIcon,
   },
   {
     number: "03",
-    title: "Close the loop",
-    desc: "Tasks, goals, calendar blocks, emails, and recaps stay connected through the day.",
-    icon: CheckBadgeIcon,
+    title: "Answer and move",
+    desc: "Charu calls, helps you choose the next action, saves the plan, and follows up in WhatsApp.",
+    icon: PhoneArrowUpRightIcon,
   },
 ];
 
@@ -42,10 +42,10 @@ export default function HowItWorks() {
         <FadeIn>
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-accent-warm">
-              How it works
+              The path to the first call
             </p>
             <h2 className="mt-3 font-serif text-[1.85rem] leading-tight text-primary md:text-[2.6rem]">
-              The whole flow fits into the tools you already use.
+              Start from WhatsApp, then let Charu carry the follow-through.
             </h2>
           </div>
         </FadeIn>

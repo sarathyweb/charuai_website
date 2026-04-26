@@ -9,7 +9,7 @@ const navLinks = [
   { label: "Product", href: "#product" },
   { label: "How It Works", href: "#how-it-works" },
   { label: "Features", href: "#features" },
-  { label: "About", href: "#about" },
+  { label: "Why Charu", href: "#about" },
 ];
 
 export default function Navbar() {
@@ -69,7 +69,7 @@ export default function Navbar() {
             href="#cta"
             className="rounded-lg bg-primary px-5 py-2 text-sm font-semibold tracking-[0.01em] text-white transition-colors hover:bg-cta-blue"
           >
-            Try Charu
+            Start on WhatsApp
           </a>
 
           <button
@@ -136,7 +136,7 @@ export default function Navbar() {
                 className="ml-auto rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white"
                 onClick={() => setMenuOpen(false)}
               >
-                Try Charu
+                Start
               </a>
             </motion.div>
           </motion.div>

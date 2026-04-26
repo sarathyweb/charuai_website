@@ -4,20 +4,20 @@ import FadeIn from "@/components/FadeIn";
 
 const proof = [
   {
-    value: "Calls",
-    label: "the nudge you cannot swipe away",
+    value: "Phone-first",
+    label: "a moment of accountability you cannot swipe away",
   },
   {
-    value: "Tasks",
-    label: "captured from what you say out loud",
+    value: "WhatsApp-first",
+    label: "start from WhatsApp on the phone you already use",
   },
   {
-    value: "Goals",
-    label: "tracked across days, not forgotten after one call",
+    value: "Your schedule",
+    label: "call windows and focus blocks built around your day",
   },
   {
-    value: "Calendar",
-    label: "time blocks that protect the work",
+    value: "Closed loops",
+    label: "tasks, goals, email follow-ups, and recaps stay connected",
   },
 ];
 

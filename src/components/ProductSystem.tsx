@@ -12,22 +12,22 @@ const rail = [
   {
     icon: PhoneArrowUpRightIcon,
     title: "Call",
-    body: "Charu asks what matters and narrows the day to a real next action.",
+    body: "Charu asks what matters and turns the answer into one next action.",
   },
   {
     icon: ClipboardDocumentCheckIcon,
     title: "Track",
-    body: "Tasks and goals are saved from the conversation automatically.",
+    body: "Tasks and goals are saved from the conversation instead of relying on memory.",
   },
   {
     icon: CalendarDaysIcon,
     title: "Protect",
-    body: "Focus blocks and call windows keep your plan visible.",
+    body: "Call windows and calendar blocks make the plan visible when the day gets noisy.",
   },
   {
     icon: EnvelopeOpenIcon,
     title: "Follow up",
-    body: "WhatsApp recaps and email help keep the loop closed.",
+    body: "WhatsApp recaps and email help close the loose ends you would otherwise carry.",
   },
 ];
 
@@ -38,14 +38,14 @@ export default function ProductSystem() {
         <FadeIn>
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-accent-warm">
-              The accountability operating system
+              What Charu does after you answer
             </p>
             <h2 className="mt-3 font-serif text-[1.85rem] leading-tight text-primary md:text-[2.6rem]">
-              One call becomes a plan your day can actually follow.
+              One short call becomes a plan your tools can carry.
             </h2>
             <p className="mt-4 text-base leading-7 text-muted">
-              Charu connects calls, tasks, goals, calendar, Gmail, and WhatsApp
-              into one follow-through loop.
+              The important moment is when you say the next action out loud and
+              Charu turns it into a visible commitment you can come back to.
             </p>
           </div>
         </FadeIn>
@@ -56,9 +56,11 @@ export default function ProductSystem() {
               <div className="mb-4 flex items-center justify-between border-b border-warm-gray/20 pb-4">
                 <div>
                   <div className="text-[12px] font-semibold uppercase tracking-[0.14em] text-muted">
-                    Morning call
+                    Accountability call
                   </div>
-                  <div className="text-xl font-semibold text-dark">Turn intention into action</div>
+                  <div className="text-xl font-semibold text-dark">
+                    Turn intention into action
+                  </div>
                 </div>
                 <div className="rounded-full bg-green-50 px-3 py-1 text-[12px] font-medium text-green-700">
                   Completed
@@ -69,7 +71,7 @@ export default function ProductSystem() {
                 {[
                   ["Goal", "Finish the launch checklist"],
                   ["Next action", "Review payment copy before noon"],
-                  ["Task", "Send Sara the onboarding notes"],
+                  ["Saved task", "Send Sara the onboarding notes"],
                 ].map(([label, value]) => (
                   <div
                     key={label}
@@ -84,8 +86,8 @@ export default function ProductSystem() {
               </div>
 
               <div className="mt-4 rounded-xl bg-primary px-4 py-3 text-sm leading-6 text-white">
-                I will call again this evening and check whether the launch
-                checklist moved forward.
+                Charu will check back tonight and ask whether the launch
+                checklist actually moved.
               </div>
             </div>
           </FadeIn>

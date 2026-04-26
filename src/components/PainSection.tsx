@@ -15,18 +15,18 @@ const painCards: {
 }[] = [
   {
     icon: BoltSlashIcon,
-    title: "Starting is the bottleneck",
-    text: "You can see the work clearly, but the first step still feels like a wall.",
+    title: "You know the task. You still do not start.",
+    text: "The plan is visible, but the first step keeps getting postponed.",
   },
   {
     icon: ClockIcon,
-    title: "Days blur together",
-    text: "By night, you remember the pressure more than the progress.",
+    title: "The day wins by default",
+    text: "Meetings, messages, and tiny errands consume the time you meant to protect.",
   },
   {
     icon: DevicePhoneMobileIcon,
-    title: "Reminders go quiet",
-    text: "Apps, planners, and notifications work until your brain turns them into background noise.",
+    title: "Reminders become wallpaper",
+    text: "Notifications are easy to dismiss when nobody is asking what you will actually do next.",
   },
 ];
 
@@ -37,14 +37,15 @@ export default function PainSection() {
         <FadeIn>
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-accent-warm">
-              Built for the gap between knowing and doing
+              For the gap between knowing and doing
             </p>
             <h2 className="mt-3 font-serif text-[1.85rem] leading-tight text-primary md:text-[2.6rem]">
-              Your to-do list is not the problem. Getting into motion is.
+              The problem is not your list. It is the lonely moment before action.
             </h2>
             <p className="mt-4 text-base leading-7 text-muted">
-              Charu is designed for the moment when motivation is gone but a real
-              person asking the right question would still help.
+              Charu is built for people who do not need another place to store
+              tasks. They need an external prompt that turns intention into a
+              small, speakable commitment.
             </p>
           </div>
         </FadeIn>
@@ -64,9 +65,9 @@ export default function PainSection() {
         <FadeIn delay={0.25}>
           <div className="mx-auto mt-10 max-w-3xl rounded-2xl border border-primary/10 bg-surface px-6 py-5 text-center shadow-card">
             <p className="text-base leading-7 text-dark">
-              Charu does not ask you to become a different kind of person. It gives
-              your day the kind of external structure that makes follow-through
-              possible.
+              Charu does not ask you to become a different kind of person. It
+              gives your day a repeatable accountability loop: call, choose,
+              save, follow up.
             </p>
           </div>
         </FadeIn>

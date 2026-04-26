@@ -9,10 +9,10 @@ export default function About() {
         <FadeIn>
           <div>
             <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-accent-warm">
-              Why it exists
+              Why this works differently
             </p>
             <h2 className="mt-3 font-serif text-[1.85rem] leading-tight text-primary md:text-[2.6rem]">
-              Built for days when self-management is already too much work.
+              Built for people who do better when accountability is outside their head.
             </h2>
           </div>
         </FadeIn>
@@ -32,10 +32,10 @@ export default function About() {
 
           <FadeIn delay={0.28}>
             <a
-              href="#how-it-works"
+              href="#cta"
               className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-surface px-5 py-3 text-sm font-semibold text-primary transition-colors hover:bg-background"
             >
-              See how Charu works
+              Start with the first call
               <span aria-hidden="true">-&gt;</span>
             </a>
           </FadeIn>

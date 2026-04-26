@@ -25,7 +25,7 @@ function ProductScene() {
             <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
               Today
             </div>
-            <div className="text-xl font-semibold text-dark">Accountability plan</div>
+            <div className="text-xl font-semibold text-dark">Follow-through plan</div>
           </div>
           <div className="rounded-full bg-green-50 px-3 py-1 text-[12px] font-medium text-green-700">
             Live
@@ -35,7 +35,7 @@ function ProductScene() {
         <div className="grid grid-cols-3 gap-3">
           {[
             ["3", "calls"],
-            ["7", "tasks"],
+            ["7", "commitments"],
             ["2", "goals"],
           ].map(([value, label]) => (
             <div
@@ -59,7 +59,7 @@ function ProductScene() {
               <div className="text-lg font-semibold text-dark">8:00 - 8:30 AM</div>
             </div>
             <div className="mt-3 space-y-2">
-              {["Pick the one thing", "Block focus time", "Send recap"].map(
+              {["Pick one priority", "Block focus time", "Send recap"].map(
                 (item) => (
                   <div key={item} className="flex items-center gap-2 text-[13px] text-muted">
                     <CheckCircleIcon className="h-4 w-4 text-green-600" />
@@ -108,13 +108,13 @@ function ProductScene() {
           </div>
           <div className="space-y-3 text-sm">
             <div className="max-w-[86%] rounded-2xl rounded-tl-sm bg-white px-3 py-2 text-dark shadow-sm">
-              What is the one thing that would make today count?
+              What is the next action you can start today?
             </div>
             <div className="ml-auto max-w-[82%] rounded-2xl rounded-tr-sm bg-primary px-3 py-2 text-white shadow-sm">
               Finish the launch deck.
             </div>
             <div className="max-w-[88%] rounded-2xl rounded-tl-sm bg-white px-3 py-2 text-dark shadow-sm">
-              Good. I blocked 10:30 and saved the follow-up task.
+              Good. I saved that and will check back tonight.
             </div>
           </div>
         </div>
@@ -135,7 +135,7 @@ export default function Hero() {
             transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             className="mb-5 inline-flex items-center rounded-full border border-primary/15 bg-surface/90 px-4 py-2 text-[13px] font-semibold text-primary shadow-sm"
           >
-            AI accountability calls for people who need help starting
+            Charu AI for people who need a real nudge to begin
           </motion.div>
 
           <motion.h1
@@ -144,7 +144,7 @@ export default function Hero() {
             transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
             className="font-serif text-[3.25rem] leading-none text-primary md:text-[5rem]"
           >
-            Charu AI
+            AI accountability calls
           </motion.h1>
 
           <motion.p
@@ -153,9 +153,9 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
             className="mt-6 max-w-xl text-lg leading-8 text-muted md:text-xl"
           >
-            A phone-based accountability partner that calls you, turns spoken
-            commitments into tasks and goals, checks your calendar, and follows up
-            on WhatsApp.
+            Charu calls on your schedule, helps you choose one next action,
+            turns the commitment into tasks and goals, and follows up in
+            WhatsApp so the plan does not disappear.
           </motion.p>
 
           <motion.div
@@ -174,9 +174,9 @@ export default function Hero() {
             className="mt-8 grid max-w-xl grid-cols-3 gap-3"
           >
             {[
-              ["2 min", "setup"],
-              ["0 apps", "to install"],
-              ["daily", "follow-through"],
+              ["2 min", "WhatsApp setup"],
+              ["Your times", "call windows"],
+              ["Tasks + goals", "saved for you"],
             ].map(([value, label]) => (
               <div
                 key={label}
@@ -201,14 +201,14 @@ export default function Hero() {
                 <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
                   Next call
                 </div>
-                <div className="text-base font-semibold text-dark">Morning plan</div>
+                <div className="text-base font-semibold text-dark">Start the day</div>
               </div>
               <div className="rounded-full bg-green-50 px-3 py-1 text-[12px] font-medium text-green-700">
                 8:00 AM
               </div>
             </div>
             <div className="mt-3 grid gap-2">
-              {["Choose one priority", "Save the follow-up task", "Send WhatsApp recap"].map(
+              {["Choose one next action", "Save the commitment", "Send WhatsApp recap"].map(
                 (item) => (
                   <div key={item} className="flex items-center gap-2 text-sm text-muted">
                     <CheckCircleIcon className="h-4 w-4 text-green-600" />

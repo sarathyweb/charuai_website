@@ -18,33 +18,33 @@ const cards: {
 }[] = [
   {
     icon: PhoneArrowUpRightIcon,
-    title: "Daily accountability calls",
-    desc: "A real phone call creates a harder-to-ignore moment of commitment than another notification.",
+    title: "Calls that make commitment real",
+    desc: "A scheduled phone call creates a harder-to-ignore moment than another reminder badge.",
   },
   {
     icon: ChatBubbleOvalLeftEllipsisIcon,
-    title: "WhatsApp follow-ups",
-    desc: "Recaps, nudges, and quick changes happen in the chat you already check.",
+    title: "WhatsApp follow-ups you will see",
+    desc: "Recaps, nudges, and quick changes happen in the chat already on your phone.",
   },
   {
     icon: CalendarDaysIcon,
-    title: "Calendar awareness",
-    desc: "Charu can inspect your schedule and help protect time for the work that matters.",
+    title: "Calendar-aware planning",
+    desc: "Charu can see your schedule and help protect time for the work that matters.",
   },
   {
     icon: EnvelopeOpenIcon,
-    title: "Gmail support",
+    title: "Gmail loose ends captured",
     desc: "Important emails can become tasks, drafts, or follow-up prompts during your call.",
   },
   {
     icon: ClipboardDocumentCheckIcon,
-    title: "Task and goal tracking",
+    title: "Tasks and goals without extra admin",
     desc: "The things you say out loud become visible commitments you can update later.",
   },
   {
     icon: ArrowPathIcon,
     title: "Flexible call windows",
-    desc: "Change the rhythm when your day changes, without rebuilding a productivity system.",
+    desc: "Change the rhythm when your week changes, without rebuilding a productivity system.",
   },
 ];
 
@@ -55,10 +55,10 @@ export default function Features() {
         <FadeIn>
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-accent-warm">
-              Capabilities
+              Why it keeps working
             </p>
             <h2 className="mt-3 font-serif text-[1.85rem] leading-tight text-primary md:text-[2.6rem]">
-              Built around follow-through, not another list.
+              Every feature points back to the next action.
             </h2>
           </div>
         </FadeIn>

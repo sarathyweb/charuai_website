@@ -36,9 +36,9 @@ export default function WhatsAppCta() {
             <canvas ref={canvasRef} className="rounded-lg" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-dark">Scan to chat</p>
+            <p className="text-sm font-semibold text-dark">Scan to start</p>
             <p className="mt-1 text-[12px] leading-5 text-muted">
-              Works from the WhatsApp account already on your phone.
+              Setup begins in the WhatsApp account already on your phone.
             </p>
           </div>
         </div>

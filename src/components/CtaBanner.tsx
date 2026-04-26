@@ -10,20 +10,21 @@ export default function CtaBanner() {
         <FadeIn>
           <div>
             <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-accent-glow">
-              Start today
+              Ready when you are
             </p>
             <h2 className="mt-3 font-serif text-[2rem] leading-tight text-white md:text-[3rem]">
-              Stop negotiating with your to-do list alone.
+              Let the next action become a call, not another note to yourself.
             </h2>
             <p className="mt-5 max-w-2xl text-base leading-7 text-white/70">
-              Message Charu, choose your call windows, and let the system start
-              carrying the follow-through with you.
+              Message Charu on WhatsApp, choose your call windows, connect your
+              work context, and let the first accountability call turn today
+              into a concrete next step.
             </p>
           </div>
         </FadeIn>
 
         <FadeIn delay={0.15}>
-          <div className="rounded-2xl border border-white/10 bg-white/[0.08] p-4">
+          <div>
             <WhatsAppCta />
           </div>
         </FadeIn>
