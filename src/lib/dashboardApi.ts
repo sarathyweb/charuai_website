@@ -51,6 +51,10 @@ export interface Profile {
   timezone: string | null;
   onboarding_complete: boolean;
   created_at: string | null;
+  urgent_email_calls_enabled: boolean;
+  auto_task_from_emails_enabled: boolean;
+  email_automation_quiet_hours_start: string;
+  email_automation_quiet_hours_end: string;
 }
 
 export interface CallHistoryItem {
@@ -100,6 +104,10 @@ export interface GoalUpdatePayload {
 export interface ProfileUpdatePayload {
   name?: string | null;
   timezone?: string | null;
+  urgent_email_calls_enabled?: boolean;
+  auto_task_from_emails_enabled?: boolean;
+  email_automation_quiet_hours_start?: string;
+  email_automation_quiet_hours_end?: string;
 }
 
 export interface CallWindowWritePayload {

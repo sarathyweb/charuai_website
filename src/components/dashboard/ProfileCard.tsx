@@ -20,6 +20,18 @@ export default function ProfileCard({
   const router = useRouter();
   const [name, setName] = useState(profile.name || "");
   const [timezone, setTimezone] = useState(profile.timezone || "");
+  const [urgentEmailCalls, setUrgentEmailCalls] = useState(
+    profile.urgent_email_calls_enabled,
+  );
+  const [autoTaskFromEmails, setAutoTaskFromEmails] = useState(
+    profile.auto_task_from_emails_enabled,
+  );
+  const [quietHoursStart, setQuietHoursStart] = useState(
+    profile.email_automation_quiet_hours_start || "21:00",
+  );
+  const [quietHoursEnd, setQuietHoursEnd] = useState(
+    profile.email_automation_quiet_hours_end || "08:00",
+  );
 
   const initial = profile.name?.[0]?.toUpperCase() || "?";
   const memberSince = profile.created_at
@@ -39,6 +51,10 @@ export default function ProfileCard({
     await onUpdate({
       name: name.trim() || null,
       timezone: timezone.trim() || null,
+      urgent_email_calls_enabled: urgentEmailCalls,
+      auto_task_from_emails_enabled: autoTaskFromEmails,
+      email_automation_quiet_hours_start: quietHoursStart,
+      email_automation_quiet_hours_end: quietHoursEnd,
     });
   };
 
@@ -67,26 +83,70 @@ export default function ProfileCard({
 
         <form
           onSubmit={handleSubmit}
-          className="grid flex-1 gap-3 sm:grid-cols-[1fr_1fr_auto]"
+          className="grid flex-1 gap-4"
         >
-          <label className="text-[12px] font-medium text-muted">
-            Name
-            <input
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-              className="mt-1 w-full rounded-lg border border-warm-gray/40 bg-background px-3 py-2 text-sm text-dark outline-none focus:border-primary"
-            />
-          </label>
-          <label className="text-[12px] font-medium text-muted">
-            Timezone
-            <input
-              value={timezone}
-              onChange={(event) => setTimezone(event.target.value)}
-              placeholder="America/New_York"
-              className="mt-1 w-full rounded-lg border border-warm-gray/40 bg-background px-3 py-2 text-sm text-dark outline-none focus:border-primary"
-            />
-          </label>
-          <div className="flex gap-2 sm:items-end">
+          <div className="grid gap-3 sm:grid-cols-2">
+            <label className="text-[12px] font-medium text-muted">
+              Name
+              <input
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                className="mt-1 w-full rounded-lg border border-warm-gray/40 bg-background px-3 py-2 text-sm text-dark outline-none focus:border-primary"
+              />
+            </label>
+            <label className="text-[12px] font-medium text-muted">
+              Timezone
+              <input
+                value={timezone}
+                onChange={(event) => setTimezone(event.target.value)}
+                placeholder="America/New_York"
+                className="mt-1 w-full rounded-lg border border-warm-gray/40 bg-background px-3 py-2 text-sm text-dark outline-none focus:border-primary"
+              />
+            </label>
+          </div>
+
+          <div className="grid gap-3 md:grid-cols-[1fr_1fr_120px_120px] md:items-end">
+            <label className="flex items-center justify-between gap-3 rounded-lg border border-warm-gray/30 bg-background px-3 py-2 text-[12px] font-medium text-muted">
+              <span>Urgent email calls</span>
+              <input
+                type="checkbox"
+                checked={urgentEmailCalls}
+                onChange={(event) => setUrgentEmailCalls(event.target.checked)}
+                className="h-4 w-4 rounded border-warm-gray/50 text-primary focus:ring-primary"
+              />
+            </label>
+            <label className="flex items-center justify-between gap-3 rounded-lg border border-warm-gray/30 bg-background px-3 py-2 text-[12px] font-medium text-muted">
+              <span>Auto-task from emails</span>
+              <input
+                type="checkbox"
+                checked={autoTaskFromEmails}
+                onChange={(event) =>
+                  setAutoTaskFromEmails(event.target.checked)
+                }
+                className="h-4 w-4 rounded border-warm-gray/50 text-primary focus:ring-primary"
+              />
+            </label>
+            <label className="text-[12px] font-medium text-muted">
+              Quiet start
+              <input
+                type="time"
+                value={quietHoursStart}
+                onChange={(event) => setQuietHoursStart(event.target.value)}
+                className="mt-1 w-full rounded-lg border border-warm-gray/40 bg-background px-3 py-2 text-sm text-dark outline-none focus:border-primary"
+              />
+            </label>
+            <label className="text-[12px] font-medium text-muted">
+              Quiet end
+              <input
+                type="time"
+                value={quietHoursEnd}
+                onChange={(event) => setQuietHoursEnd(event.target.value)}
+                className="mt-1 w-full rounded-lg border border-warm-gray/40 bg-background px-3 py-2 text-sm text-dark outline-none focus:border-primary"
+              />
+            </label>
+          </div>
+
+          <div className="flex gap-2 sm:justify-end">
             <button
               type="submit"
               disabled={busy}

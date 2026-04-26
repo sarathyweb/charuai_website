@@ -37,6 +37,10 @@ const profile = {
   timezone: "America/New_York",
   onboarding_complete: true,
   created_at: "2026-04-01T12:00:00Z",
+  urgent_email_calls_enabled: false,
+  auto_task_from_emails_enabled: false,
+  email_automation_quiet_hours_start: "21:00",
+  email_automation_quiet_hours_end: "08:00",
 };
 
 const progress = {
@@ -350,12 +354,24 @@ describe("DashboardPage", () => {
     fireEvent.change(timezoneInput, {
       target: { value: "America/Chicago" },
     });
+    fireEvent.click(screen.getByLabelText("Urgent email calls"));
+    fireEvent.click(screen.getByLabelText("Auto-task from emails"));
+    fireEvent.change(screen.getByLabelText("Quiet start"), {
+      target: { value: "22:00" },
+    });
+    fireEvent.change(screen.getByLabelText("Quiet end"), {
+      target: { value: "07:30" },
+    });
     await waitFor(() => expect(timezoneInput.value).toBe("America/Chicago"));
     fireEvent.click(screen.getByLabelText("Save settings"));
     await waitFor(() =>
       expectJsonBody(latestRequest(requests, "/api/user/profile", "PATCH"), {
         name: "Asha",
         timezone: "America/Chicago",
+        urgent_email_calls_enabled: true,
+        auto_task_from_emails_enabled: true,
+        email_automation_quiet_hours_start: "22:00",
+        email_automation_quiet_hours_end: "07:30",
       }),
     );
 
