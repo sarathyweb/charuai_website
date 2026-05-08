@@ -36,13 +36,74 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [confirmationResult, setConfirmationResult] =
     useState<ConfirmationResult | null>(null);
   const recaptchaRef = useRef<RecaptchaVerifier | null>(null);
+  const syncedUidRef = useRef<string | null>(null);
+
+  const signOutAndClear = async () => {
+    syncedUidRef.current = null;
+    setUser(null);
+    try {
+      await auth.signOut();
+    } catch {
+      // The UI should not keep an authenticated state just because sign-out failed.
+    }
+  };
+
+  const syncUserToBackend = async (firebaseUser: User) => {
+    const token = await firebaseUser.getIdToken();
+    const syncResponse = await fetch(`${API_BASE}/api/auth/sync`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (!syncResponse.ok) {
+      throw new Error("Backend auth sync failed");
+    }
+
+    syncedUidRef.current = firebaseUser.uid;
+  };
 
   useEffect(() => {
+    let disposed = false;
+    let syncGeneration = 0;
+
     const unsubscribe = onAuthStateChanged(auth, (u) => {
-      setUser(u);
-      setLoading(false);
+      const generation = ++syncGeneration;
+
+      if (!u) {
+        syncedUidRef.current = null;
+        setUser(null);
+        setLoading(false);
+        return;
+      }
+
+      if (syncedUidRef.current === u.uid) {
+        setUser(u);
+        setLoading(false);
+        return;
+      }
+
+      setUser(null);
+      setLoading(true);
+      void (async () => {
+        try {
+          await syncUserToBackend(u);
+          if (!disposed && generation === syncGeneration) {
+            setUser(u);
+          }
+        } catch {
+          await signOutAndClear();
+        } finally {
+          if (!disposed && generation === syncGeneration) {
+            setLoading(false);
+          }
+        }
+      })();
     });
-    return unsubscribe;
+
+    return () => {
+      disposed = true;
+      unsubscribe();
+    };
   }, []);
 
   const sendOtp = async (phoneNumber: string) => {
@@ -63,12 +124,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     const result = await confirmationResult.confirm(code);
 
-    // Sync user to backend
-    const token = await result.user.getIdToken();
-    await fetch(`${API_BASE}/api/auth/sync`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    try {
+      await syncUserToBackend(result.user);
+      setUser(result.user);
+    } catch {
+      await signOutAndClear();
+      throw new Error("Could not finish sign-in. Please try again.");
+    }
 
     return result.user;
   };
@@ -79,6 +141,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = async () => {
+    syncedUidRef.current = null;
+    setUser(null);
     await auth.signOut();
   };
 
